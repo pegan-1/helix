@@ -1,10 +1,8 @@
-/**
-* Helix Programming Language Scanner
-*
-* @author  Peter Egan
-* @since   2023-08-31
-* @lastUpdated 2023-09-02
-*/
+//!
+//! Helix Programming Language Scanner
+//!
+//! Given a valid Helix Programming File (hpl), will tokenize the input.
+//!
 
 pub struct Scanner {
     pub name: String,
@@ -19,6 +17,11 @@ impl Default for Scanner {
 }
 
 impl Scanner {
+    pub fn scan(&self, hpl_contents: String) -> String {
+        hpl_contents
+    }
+
+    /// Returns a string with the name of the service
     pub fn whoami(&self) {
         println!("{}", self.name);
     }

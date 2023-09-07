@@ -1,21 +1,31 @@
-/**
-* Helix Programming Language Interpreter
-*
-* @author  Peter Egan
-* @since   2023-08-31
-* @lastUpdated 2023-09-02
-*/
+//!
+//! Helix Programming Language Interpreter
+//!
+//! Given a valid Helix Programming File (hpl), the
+//! interpreter will run the program.
+//!
 
-// Modules
-mod scanner;
+// Standard Library Imports
+use std::env;
+use std::process;
 
-// Aliases
-use scanner::Scanner;
+// Helix imports
+use helix::Config;
 
 fn main() {
-    println!("Welcome to the Helix Interpreter!");
-    let scanner = Scanner {
-        ..Default::default()
-    };
-    scanner.whoami();
+    eprintln!("Helix Interpreter: v0.0.1.");
+    // Read in the program arguments
+    let args: Vec<String> = env::args().collect();
+
+    // And build the configuration
+    let config = Config::build(&args).unwrap_or_else(|err| {
+        eprintln!("Configuration Error: {err}");
+        process::exit(1);
+    });
+
+    // With the configuration obtained, run the program
+    if let Err(e) = helix::run(config) {
+        eprintln!("Application error: {e}");
+        process::exit(1);
+    }
 }
